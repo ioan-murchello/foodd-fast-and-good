@@ -1,28 +1,30 @@
-
 import { useModalContext } from './modalContext/modalCTX.jsx';
 import './App.css';
-import Header from './components/Header';
-import Prewiev from './components/Prewiev';
-import Timer from './components/Timer';
-import Modal from './components/Modal';
-import Offer from './components/Offer.jsx';
-import Calculating from './components/Calculating.jsx';
-import Menu from './components/Menu.jsx';
-
-
+import {
+  Header,
+  Prewiev,
+  Modal,
+  Offer,
+  Calculating,
+  Menu,
+  Order,
+  Promotion,
+  Footer,
+} from './components/index';
 
 function App() {
-   const {showModal} = useModalContext()
+  const { showModal } = useModalContext();
   return (
     <>
-      <Header />
-      <Timer/>
+      <Header /> 
       <Prewiev />
-      <Offer/>
-      <Calculating/>
-      <Menu/>
-      {showModal && <Modal/>}
-      {/* <h2>{timer}</h2> */}
+      <Offer />
+      <Calculating />
+      <Menu />
+      <Order />
+      <Promotion />
+      <Footer/>
+      {showModal && <Modal />}
     </>
   );
 }

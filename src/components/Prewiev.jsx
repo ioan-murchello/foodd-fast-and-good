@@ -47,7 +47,7 @@ const Prewiev = () => {
               </div>
             </div>
           </div>
-          <div className='preview__life'>Живи полной жизнью!</div>
+          <div className='preview__life'>Live full life!</div>
         </div>
       </div>
     </Wrapper>

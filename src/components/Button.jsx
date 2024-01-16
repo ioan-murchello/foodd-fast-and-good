@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { MdContactPhone } from 'react-icons/md';
 import { useModalContext } from "../modalContext/modalCTX";
 
 const Button = ({title, firstC, secondC}) => {
@@ -13,9 +12,6 @@ export default Button
 const Btn = styled.button`
   font-family: 'Nunito';
   font-weight: 600;
-  /* width: 220px;
-  height: 65px;
-  display: flex; */
   padding: 15px 25px;
   justify-content: center;
   align-items: center;
@@ -28,6 +24,7 @@ const Btn = styled.button`
   cursor: pointer;
   transition: 0.3s all;
   outline: none;
+  margin: 0 0 0 15px;
   border-radius: 6px;
   &:hover {
     transform: scale(0.98);

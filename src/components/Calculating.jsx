@@ -61,6 +61,8 @@ const Calculating = () => {
   return (
     <Wrapper>
       <div className='calculating'>
+        <div className='bgc_y'></div>
+
         <div className='container'>
           <h2 className='title'>Let's calculate your calorie needs?</h2>
           <div className='calculating__field'>
@@ -170,6 +172,7 @@ export default Calculating;
 const Wrapper = styled.section`
   .calculating {
     padding: 50px 0;
+    position: relative;
   }
   .title {
     text-align: center;
@@ -178,7 +181,7 @@ const Wrapper = styled.section`
   .calculating__field {
     width: 100%;
     margin-top: 50px;
-    background: rgba(146, 242, 255, 0.15);
+    /* background: rgba(146, 242, 255, 0.15); */
     padding: 30px 0 40px 0;
   }
   .calculating__subtitle {
@@ -321,5 +324,15 @@ const Wrapper = styled.section`
         font-size: 1.3rem;
       }
     }
+  }
+
+  .bgc_y {
+    position: absolute;
+    width: 65%;
+    height: 80%;
+    background: rgba(146, 242, 255, 0.15);
+    z-index: -1;
+    top: 100px;
+    right: 0;
   }
 `;

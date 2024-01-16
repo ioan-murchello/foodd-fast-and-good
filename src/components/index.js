@@ -1,0 +1,21 @@
+import Header from './Header';
+import Button from './Button';
+import Calculating from './Calculating';
+import Menu from './Menu';
+import Offer from './Offer';
+import Order from './Order';
+import Prewiev from './Prewiev';
+import Promotion from './Promotion';
+import Slider from './Slider'; 
+
+export { default as Header} from './Header';
+export { default as Button } from './Button';
+export { default as Calculating } from './Calculating';
+export { default as Menu } from './Menu';
+export { default as Offer } from './Offer';
+export { default as Order } from './Order';
+export { default as Prewiev } from './Prewiev';
+export { default as Promotion } from './Promotion';
+export { default as Slider } from './Slider';
+export { default as Footer } from './Footer';
+export { default as Modal } from './Modal';

@@ -1,50 +1,53 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { useModalContext } from "../modalContext/modalCTX";
+
+import styled from 'styled-components';
+import { useModalContext } from '../modalContext/modalCTX';
 
 const Modal = () => {
-   const {onCloseModal} = useModalContext()
+  const { onCloseModal } = useModalContext();
 
-   const onHandleSubmit = (e) => {
-    e.preventDefault() 
-     onCloseModal();
-   };
+  const onHandleSubmit = (e) => {
+    e.preventDefault();
+    onCloseModal();
+  };
 
-   const handleContentClick = e => {
-    e.stopPropagation()
-   }
-   return (
-     <Wrapper className='modal' onClick={onCloseModal}>
-       <div className='modal__dialog' onClick={handleContentClick}>
-         <div className='modal__content'>
-           <form onSubmit={onHandleSubmit}>
-             <div className='modal__close' onClick={onHandleSubmit}>&times;</div>
-             <div className='modal__title'>
-               We will contact you as quickly as possible!
-             </div>
-             <input
-               required
-               placeholder='Your name'
-               name='name'
-               type='text'
-               className='modal__input'
-             />
-             <input
-               required
-               placeholder='Your phone number'
-               name='phone'
-               type='phone'
-               className='modal__input'
-             />
-             <button type="submit" className='btn btn_dark btn_min'>Call me back</button>
-           </form>
-         </div>
-       </div>
-     </Wrapper>
-   );
-  
-}
-export default Modal
+  const handleContentClick = (e) => {
+    e.stopPropagation();
+  };
+  return (
+    <Wrapper className='modal' onClick={onCloseModal}>
+      <div className='modal__dialog' onClick={handleContentClick}>
+        <div className='modal__content'>
+          <form onSubmit={onHandleSubmit}>
+            <div className='modal__close' onClick={onHandleSubmit}>
+              &times;
+            </div>
+            <div className='modal__title'>
+              We will contact you as quickly as possible!
+            </div>
+            <input
+              required
+              placeholder='Your name'
+              name='name'
+              type='text'
+              className='modal__input'
+            />
+            <input
+              required
+              placeholder='Your phone number'
+              name='phone'
+              type='phone'
+              className='modal__input'
+            />
+            <button type='submit' className='btn btn_dark btn_min'>
+              Call me back
+            </button>
+          </form>
+        </div>
+      </div>
+    </Wrapper>
+  );
+};
+export default Modal;
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -63,6 +66,7 @@ export const Wrapper = styled.div`
 
   .modal__dialog {
     max-width: 500px;
+    width: 100%;
     margin: 40px auto;
   }
 
@@ -94,6 +98,9 @@ export const Wrapper = styled.div`
     text-align: center;
     font-size: 22px;
     text-transform: uppercase;
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
   }
 
   .modal__input {
@@ -108,18 +115,24 @@ export const Wrapper = styled.div`
     text-align: center;
     padding: 0 20px;
     outline: none;
+    @media (max-width: 600px) {
+      max-width: 80%;
+    }
   }
 
   .btn {
     display: block;
     width: 280px;
     margin: 0 auto;
-    border:none;
+    border: none;
     outline: none;
     padding: 10px;
-    &:hover{
-        cursor: pointer;
-        background-color: #ededed;
+    @media (max-width: 600px) {
+      max-width: 80%;
     }
-}
+    &:hover {
+      cursor: pointer;
+      background-color: #ededed;
+    }
+  }
 `;

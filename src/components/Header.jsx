@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Button from './Button';
 import logo from '../assets/icons/logo.svg';
-import { useModalContext } from '../modalContext/modalCTX';
 
 const Header = () => {
   
@@ -22,8 +21,7 @@ const Header = () => {
           </nav>
         </div>
         <div className='header__right-block'>
-          <Button classNamebtn btn_white title='Contact us' />
-          {/* <button className='btn btn_white'>Связаться с нами</button> */}
+          <Button classNamebtn btn_white title='Contact us' /> 
         </div>
       </div>
     </Wrapper>
