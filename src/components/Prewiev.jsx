@@ -70,6 +70,10 @@ const Wrapper = styled.section`
     font-size: 20px;
     margin-left: 35px;
     margin-top: 35px;
+
+    @media(max-width: 768px){
+      font-size: 0
+    }
   }
 
   .bgc_blue {
@@ -105,8 +109,7 @@ const Wrapper = styled.section`
     position: relative;
   }
 
-  .tabcontent img {
-    /* transition: all 0.3s ease-in-out; */
+  .tabcontent img { 
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -135,7 +138,7 @@ const Wrapper = styled.section`
 
   @media (max-width: 992px) {
     .tabcontent__descr {
-      font-size: px;
+      font-size: 20px;
       padding: 40px;
       line-height: 30px;
     }

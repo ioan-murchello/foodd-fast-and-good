@@ -1,24 +1,24 @@
-import styled from 'styled-components'; 
-import svg from '../assets/icons/right.svg'
+import styled from 'styled-components';
+import svg from '../assets/icons/right.svg';
 import { useState } from 'react';
-
+import { toast } from 'react-toastify';
+ 
 const Order = () => {
-    const[data,setData] = useState({name:'',phone:''})
+  const [data, setData] = useState({ name: '', phone: '' });
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.success('Thank You! We will contact you soon.');
+  };
 
-    const onHandleChange = e => {
-        const name = e.target.name;
-        const value = e.target.value
-        console.log(name, value)
-
-        setData(prev => ({...prev, [name]: value}))
-    }
+  const onHandleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
   
+
   return (
     <Wrapper>
       <div className='order'>
@@ -31,17 +31,17 @@ const Order = () => {
               name='name'
               type='text'
               className='order__input'
-              value={data.name}
+              defaultValue={data.name}
               onChange={onHandleChange}
             />
             <input
               required
-              placeholder='Your phone number'
               name='phone'
+              placeholder='Your phone'
               type='tel'
               className='order__input'
-              value={data.phone}
-              onChange={onHandleChange}
+              onChange={onhashchange}
+              defaultValue={data.phone}
             />
             <img src={svg} alt='right' />
             <button className='btn btn_dark btn_min'>Call me back</button>
@@ -62,7 +62,7 @@ const Wrapper = styled.section`
       font-weight: 600;
 
       @media (max-width: 992px) {
-         font-size:20px;
+        font-size: 20px;
       }
     }
     &__form {

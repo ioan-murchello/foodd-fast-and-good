@@ -1,6 +1,7 @@
 
 import styled from 'styled-components';
 import { useModalContext } from '../modalContext/modalCTX';
+import { toast } from 'react-toastify';
 
 const Modal = () => {
   const { onCloseModal } = useModalContext();
@@ -8,6 +9,7 @@ const Modal = () => {
   const onHandleSubmit = (e) => {
     e.preventDefault();
     onCloseModal();
+    toast.success('Thank You! We will contact you soon.')
   };
 
   const handleContentClick = (e) => {
@@ -18,7 +20,7 @@ const Modal = () => {
       <div className='modal__dialog' onClick={handleContentClick}>
         <div className='modal__content'>
           <form onSubmit={onHandleSubmit}>
-            <div className='modal__close' onClick={onHandleSubmit}>
+            <div className='modal__close' onClick={onCloseModal}>
               &times;
             </div>
             <div className='modal__title'>

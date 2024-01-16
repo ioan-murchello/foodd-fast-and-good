@@ -5,7 +5,7 @@ import Slider from './Slider';
 const Offer = () => {
   return (
     <Wrapper>
-      <div className='offer container'>
+      <div className='offer'>
         <div className='bgc_y'></div>
         <div className='offer__container'>
           <div className='offer__text'>

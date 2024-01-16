@@ -1,76 +1,89 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { PiArrowSquareLeftFill } from 'react-icons/pi';
 import { PiArrowSquareRightFill } from 'react-icons/pi';
 import { listOfSLides } from '../data';
- 
+
+import { Pagination, Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 const Slider = () => {
-  const [slides, setSlides] = useState(listOfSLides);
-  const [offset, setOffset] = useState(0);
+  const [slides, setSlides] = useState(listOfSLides); 
+  const [swiperIndex, setSwiperIndex] = useState(0); 
 
   const prevSlide = () => {
-    setOffset((prevOffset) => {
-      let newOffset = prevOffset - 1;
-      if (newOffset < 0) {
-        newOffset = (slides.length - 1) * 1
-        return newOffset
+    setSwiperIndex((prevOffset) => {
+      if (prevOffset > 0) {
+        return prevOffset - 1;
       }
-      return newOffset;
+
+      return prevOffset;
     });
   };
 
   const nextSlide = () => {
-    setOffset((prevOffset) => {
-      let newOffset = prevOffset + 1;
-       if (newOffset > (slides.length - 1) * 1) {
-        newOffset = 0
-         return newOffset;
-       }
-      
-      return newOffset;
+    setSwiperIndex((prevOffset) => {
+      if (prevOffset < slides.length - 1) {
+        return prevOffset + 1;
+      }
+      return prevOffset;
     });
   };
-  
+
   return (
     <Wrapper>
       <div className='offer__slider'>
         <div className='offer__slider-counter'>
-          <div className='offer__slider-prev' onClick={prevSlide}>
-            <PiArrowSquareLeftFill className='arrows'/>
+          <div
+            className='offer__slider-prev image-swiper-button-prev'
+            onClick={prevSlide}
+          >
+            <PiArrowSquareLeftFill className='arrows' />
           </div>
-          <span id='current'>{offset + 1}</span>/<span id='total'>{slides.length}</span>
-          <div className='offer__slider-next' onClick={nextSlide}>
-            <PiArrowSquareRightFill className='arrows'/>
+          <span id='current'>{swiperIndex + 1}</span>/
+          <span id='total'>{slides.length}</span>
+          <div
+            className='offer__slider-next image-swiper-button-next'
+            onClick={nextSlide}
+          >
+            <PiArrowSquareRightFill className='arrows' />
           </div>
         </div>
         <div className='offer__slider-wrapper'>
-          <div className='slide'>
-            <div
-              className='all__slides'
-              style={{
-                transform: `translateX(-${offset * 100}%)`,
-                transition: 'all 0.5s ease-in-out'
-              }}
-            >
-              {slides.map((sld) => {
-                return (
-                  <div
-                    key={sld.id}
-                    style={{ minWidth: '100%', maxWidth: '100%' }}
-                    className='offer__slide'
-                  >
-                    <img src={sld.image} alt={sld.name} />
-                  </div>
-                );
-              })}
+          <Swiper
+            modules={[Navigation, Pagination]}
+            className='swiper'
+            effect='fade'
+            spaceBetween={10}
+            slidesPerView={1}
+            initialSlide={0}
+            navigation={{
+              nextEl: '.image-swiper-button-next',
+              prevEl: '.image-swiper-button-prev',
+            }}
+            pagination={{ clickable: true }}
+            onActiveIndexChange={(index) => {
+              setSwiperIndex(index.activeIndex);
+            }}
+          >
+            <div className='swpiper-wrapper'>
+              {slides.map((sld) => (
+                <SwiperSlide key={sld.id} className='offer__slide'>
+                  <img src={sld.image} alt={sld.name} />
+                </SwiperSlide>
+              ))}
             </div>
-          </div>
+          </Swiper>
         </div>
       </div>
     </Wrapper>
   );
 };
 export default Slider;
+
 
 const Wrapper = styled.div`
   .offer__slider {
@@ -80,15 +93,15 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: flex-end;
 
-    @media (max-width: 992px){
+    @media (max-width: 992px) {
       width: 468px;
       height: 280px;
     }
-    @media (max-width: 768px){
-      width: 380px;
-      height: 260px;
+    @media (max-width: 768px) {
+      width: 310px;
+      height: 460px;
     }
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
       width: 100%;
       height: 240px;
     }
@@ -104,15 +117,9 @@ const Wrapper = styled.div`
     &-wrapper {
       position: relative;
       width: 100%;
-      height: 100%; 
+      height: 100%;
       margin-top: 15px;
       box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
-
-      /* @media (max-width: 992px){
-        width: 550px;
-        height: 300px;
-
-      } */
     }
 
     &-prev {
@@ -130,7 +137,7 @@ const Wrapper = styled.div`
       font-weight: bold;
       color: rgba(0, 0, 0, 1);
 
-      @media (max-width: 600px){
+      @media (max-width: 600px) {
         font-size: 30px;
       }
     }
@@ -138,7 +145,7 @@ const Wrapper = styled.div`
 
   .offer__slide {
     max-width: 650px;
-    min-width: 650px; 
+    /* min-width: 650px; */
 
     img {
       width: 100%;
@@ -148,7 +155,7 @@ const Wrapper = styled.div`
   }
   .slide {
     width: 100%;
-    height: 100%; 
+    height: 100%;
     transition: all 0.3s ease-in-out;
     overflow: hidden;
   }
@@ -156,12 +163,46 @@ const Wrapper = styled.div`
     display: flex;
     height: 100%;
   }
-  .arrows{
+  .arrows {
     width: 30px;
     height: 30px;
   }
-  .arrows:hover{
+  .arrows:hover {
     transform: scale(1.07);
     transition: all 0.3s;
+  }
+  .swiper {
+    overflow: hidden;
+  }
+  .swiper-wrapper {
+    display: flex;
+  }
+  .swiper-slide {
+    height: auto;
+  }
+
+  .swiper-pagination {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 20px 0;
+  }
+
+  .swiper-pagination-bullet {
+    width: 40px;
+    height: 10px;
+    background-color: #fff;
+    opacity: 0.7;
+    margin: 0 5px;
+    border-radius: 4px;
+
+    @media (max-width: 600px) {
+      width: 20px;
+    }
+  }
+
+  .swiper-pagination-bullet-active {
+    /* Your styling for the active pagination bullet */
+    background-color: #fff426; /* Customize the active bullet color */
+    opacity: 1; /* Customize the active bullet opacity */
   }
 `;
