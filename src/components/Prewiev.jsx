@@ -6,6 +6,7 @@ const Prewiev = () => {
 
   const [indexx, setIndexx] = useState(1)
   const [tab, setTab] = useState(cards[indexx - 1]);
+
   const onActive = id => {
     setIndexx(id)
     const el = cards.find((el) => el.id === id);
@@ -17,16 +18,26 @@ const Prewiev = () => {
       <div className='preview'>
         <div className='container'>
           <div className='tabcontainer'>
-            <div className={`tabcontent`}>
-              <img
-                key={tab.id}
-                className={`${indexx === tab.id ? 'show fade' : 'hide'}`}
-                src={tab.image}
-                alt='vegy'
-              />
+            {cards.map(card => {
+              return (
+                <div
+                  key={card.id}
+                  className='tabcontent'
+                  style={{display: indexx === card.id ? 'grid': 'none'}}
+                >
+                  <div className='img__wrapper'>
+                    <img
+                      className={`${indexx === card.id ? 'show fade' : 'hide'}`}
+                      src={card.image}
+                      alt={card.type}
+                    />
+                  </div>
 
-              <div className='tabcontent__descr'>{tab.desc}</div>
-            </div>
+                  <div className='tabcontent__descr'>{card.desc}</div>
+                </div>
+              );
+            })}
+            
 
             <div className='tabheader'>
               <h3>Choose your eating style</h3>
@@ -59,8 +70,8 @@ const Wrapper = styled.section`
   .preview {
     padding: 60px 0 100px 0;
     position: relative;
-    
-    @media (max-width: 600px){
+
+    @media (max-width: 600px) {
       padding: 30px 0 30px 0;
     }
   }
@@ -71,8 +82,8 @@ const Wrapper = styled.section`
     margin-left: 35px;
     margin-top: 35px;
 
-    @media(max-width: 768px){
-      font-size: 0
+    @media (max-width: 992px) {
+      font-size: 0;
     }
   }
 
@@ -90,43 +101,53 @@ const Wrapper = styled.section`
     display: grid;
     grid-template-columns: 3fr 1fr;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    position: relative;
+    height: 650px;
+
+    @media (max-width: 992px) {
+        grid-template-columns: 2fr 1fr;
+        min-height: 350px;
+    } 
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    } 
   }
 
-  @media (max-width: 992px) {
-    .tabcontainer {
-      grid-template-columns: 2fr 1fr;
-      min-height: 350px;
-    }
-  }
-  @media (max-width: 600px) {
-    .tabcontainer {
-      grid-template-columns: 1fr;
-      box-shadow: none;
-    }
-  }
 
   .tabcontent {
-    position: relative;
+    position: absolute;
+    display: none;
+    grid-template-columns: 3fr 1fr;
+    width: 100%;
+    height: 100%;
+
+    @media (max-width: 600px) {
+      position: inherit;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr;
+    }
   }
 
-  .tabcontent img { 
+  .img__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .tabcontent img {
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-
-  @media (max-width: 600px) {
-    .tabcontent img {
-      height: auto;
-      object-fit: cover;
-    }
-  }
-
   .tabcontent__descr {
     position: absolute;
-    top: 300px;
-    right: -177px;
+    top: 56%;
+    left: 45%;
     width: 500px;
     background: rgba(251, 254, 93, 0.937);
     padding: 50px;
@@ -134,15 +155,24 @@ const Wrapper = styled.section`
     font-weight: 300;
     line-height: 36px;
     color: rgb(0, 0, 0);
+    z-index: 5;
   }
 
   @media (max-width: 992px) {
+    .tabcontent__descr {
+      left: 10%;
+      top: 70%;
+    }
+  }
+
+  @media (max-width: 768px) {
     .tabcontent__descr {
       font-size: 20px;
       padding: 40px;
       line-height: 30px;
     }
   }
+
   @media (max-width: 600px) {
     .tabcontent__descr {
       position: relative;
@@ -156,14 +186,20 @@ const Wrapper = styled.section`
   }
 
   .tabheader {
+    position: absolute;
+    top: 0;
+    right: 0;
     width: 280px;
+    height: 100%;
     padding: 35px 30px;
     background-color: #fff;
-  }
 
-  @media (max-width: 992px) {
-    .tabheader {
-      width: auto;
+    @media (max-width: 992px) {
+      width: 30%;
+    }
+    @media (max-width: 600px) {
+      position: inherit;
+        width: 100%;
     }
   }
 
@@ -182,11 +218,11 @@ const Wrapper = styled.section`
     transition: all 0.2s ease-in-out;
   }
   .tabheader__item:hover {
-    cursor: pointer; 
+    cursor: pointer;
     font-size: 19px;
   }
   .tabheader__item_active {
-    color: #000000; 
+    color: #000000;
     font-size: 19px;
     font-weight: 600;
   }

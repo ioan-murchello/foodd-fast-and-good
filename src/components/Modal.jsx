@@ -2,14 +2,56 @@
 import styled from 'styled-components';
 import { useModalContext } from '../modalContext/modalCTX';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { setCursorPosition } from '../helpers/cursorPosition';
 
 const Modal = () => {
   const { onCloseModal } = useModalContext();
+  const [data, setData] = useState({name:'', phone: ''})
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
     onCloseModal();
     toast.success('Thank You! We will contact you soon.')
+  };
+
+  const onHandleChange = (e) => {
+    const name = e.target.name;
+    let value = e.target.value;
+
+    setData((prev) => {
+      if (name === 'phone') {
+        let matrix = '+49 (___) __-___',
+          i = 0,
+          def = matrix.replace(/\D/g, ''),
+          val = value.replace(/\D/g, '');
+
+        if (def.length >= val.length) {
+          val = def;
+        }
+
+        let formattedPhoneNumber = matrix.replace(/./g, function (a) {
+          return /[_\d]/.test(a) && i < val.length
+            ? val.charAt(i++)
+            : i >= val.length
+            ? ''
+            : a;
+        });
+
+        return { ...prev, [name]: formattedPhoneNumber };
+      } else {
+        return { ...prev, [name]: value };
+      }
+    });
+
+    if (e.type === 'blur') {
+      if (value.length === 2) {
+        value = '';
+        setData((prev) => ({ ...prev, [name]: value }));
+      }
+    } else {
+      setCursorPosition(value.length, e.target);
+    }
   };
 
   const handleContentClick = (e) => {
@@ -31,14 +73,18 @@ const Modal = () => {
               placeholder='Your name'
               name='name'
               type='text'
-              className='modal__input'
+              className='modal__input' 
+              value={data.name}
+              onChange={onHandleChange}
             />
             <input
               required
-              placeholder='Your phone number'
+              placeholder='+49 (___) __-___'
               name='phone'
               type='phone'
               className='modal__input'
+              value={data.phone} 
+              onChange={onHandleChange}
             />
             <button type='submit' className='btn btn_dark btn_min'>
               Call me back
@@ -113,8 +159,7 @@ export const Wrapper = styled.div`
     background: #ffffff;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     border: none;
-    font-size: 18px;
-    text-align: center;
+    font-size: 18px; 
     padding: 0 20px;
     outline: none;
     @media (max-width: 600px) {

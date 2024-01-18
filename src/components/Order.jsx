@@ -2,22 +2,55 @@ import styled from 'styled-components';
 import svg from '../assets/icons/right.svg';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { setCursorPosition } from '../helpers/cursorPosition';
  
 const Order = () => {
   const [data, setData] = useState({ name: '', phone: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setData({name: '', phone: ''})
     toast.success('Thank You! We will contact you soon.');
   };
 
   const onHandleChange = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
-    setData((prev) => ({ ...prev, [name]: value }));
-  };
+    let value = e.target.value;
 
-  
+    setData((prev) => {
+      if (name === 'phone') {
+        let matrix = '+49 (___) __-___',
+          i = 0,
+          def = matrix.replace(/\D/g, ''),
+          val = value.replace(/\D/g, '');
+
+        if (def.length >= val.length) {
+          val = def;
+        }
+
+        let formattedPhoneNumber = matrix.replace(/./g, function (a) {
+          return /[_\d]/.test(a) && i < val.length
+            ? val.charAt(i++)
+            : i >= val.length
+            ? ''
+            : a;
+        });
+
+        return { ...prev, [name]: formattedPhoneNumber };
+      } else {
+        return { ...prev, [name]: value };
+      }
+    });
+
+    if (e.type === 'blur') {
+      if (value.length === 2) {
+        value = '';
+        setData((prev) => ({ ...prev, [name]: value }));
+      }
+    } else {
+      setCursorPosition(value.length, e.target);
+    }
+  };
 
   return (
     <Wrapper>
@@ -31,17 +64,17 @@ const Order = () => {
               name='name'
               type='text'
               className='order__input'
-              defaultValue={data.name}
+              value={data.name}
               onChange={onHandleChange}
             />
             <input
               required
               name='phone'
-              placeholder='Your phone'
+              placeholder='+49 (___) __-___'
               type='tel'
               className='order__input'
-              onChange={onhashchange}
-              defaultValue={data.phone}
+              onChange={onHandleChange}
+              value={data.phone}
             />
             <img src={svg} alt='right' />
             <button className='btn btn_dark btn_min'>Call me back</button>
@@ -91,8 +124,7 @@ const Wrapper = styled.section`
       background: #ffffff;
       box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
       border: none;
-      font-size: 18px;
-      text-align: center;
+      font-size: 18px; 
       padding: 0 20px;
       outline: none;
 

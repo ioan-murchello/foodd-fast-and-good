@@ -1,8 +1,6 @@
 import { useState,useEffect } from "react";
 import { timer } from "../helpers/timer";
 
-const deadline = '2024-01-14T14:34:00';
-
 const Timer = () => {
     const [time, setTime] = useState({});
     const [timeEnd, setTimeEnd] = useState(true);

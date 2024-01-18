@@ -23,8 +23,7 @@ const Btn = styled.button`
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: 0.3s all;
-  outline: none;
-  margin: 0 0 0 15px;
+  outline: none; 
   border-radius: 6px;
   &:hover {
     transform: scale(0.98);

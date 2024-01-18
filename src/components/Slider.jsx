@@ -13,6 +13,7 @@ import 'swiper/css/pagination';
 const Slider = () => {
   const [slides, setSlides] = useState(listOfSLides); 
   const [swiperIndex, setSwiperIndex] = useState(0); 
+  const [swiperRealIndex, setSwiperRealIndex] = useState(0); 
 
   const prevSlide = () => {
     setSwiperIndex((prevOffset) => {
@@ -32,7 +33,7 @@ const Slider = () => {
       return prevOffset;
     });
   };
-
+ 
   return (
     <Wrapper>
       <div className='offer__slider'>
@@ -43,7 +44,7 @@ const Slider = () => {
           >
             <PiArrowSquareLeftFill className='arrows' />
           </div>
-          <span id='current'>{swiperIndex + 1}</span>/
+          <span id='current'>{swiperRealIndex + 1}</span>/
           <span id='total'>{slides.length}</span>
           <div
             className='offer__slider-next image-swiper-button-next'
@@ -59,15 +60,16 @@ const Slider = () => {
             effect='fade'
             spaceBetween={10}
             slidesPerView={1}
-            initialSlide={0}
+            initialSlide={swiperIndex}
             navigation={{
               nextEl: '.image-swiper-button-next',
               prevEl: '.image-swiper-button-prev',
             }}
             pagination={{ clickable: true }}
-            onActiveIndexChange={(index) => {
+            onActiveIndexChange={(index) => { 
               setSwiperIndex(index.activeIndex);
             }}
+            onSlideChange={(indx) => setSwiperRealIndex(indx.realIndex)}
           >
             <div className='swpiper-wrapper'>
               {slides.map((sld) => (
@@ -93,6 +95,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: flex-end;
 
+    &:hover{
+      cursor: pointer;
+    }
+
     @media (max-width: 992px) {
       width: 468px;
       height: 280px;
@@ -117,7 +123,6 @@ const Wrapper = styled.div`
     &-wrapper {
       position: relative;
       width: 100%;
-      height: 100%;
       margin-top: 15px;
       box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     }
@@ -145,7 +150,6 @@ const Wrapper = styled.div`
 
   .offer__slide {
     max-width: 650px;
-    /* min-width: 650px; */
 
     img {
       width: 100%;
@@ -195,7 +199,7 @@ const Wrapper = styled.div`
     margin: 0 5px;
     border-radius: 4px;
 
-    @media (max-width: 600px) {
+    @media (max-width: 992px) {
       width: 20px;
     }
   }

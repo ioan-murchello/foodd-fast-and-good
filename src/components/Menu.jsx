@@ -46,7 +46,7 @@ const Wrapper = styled.section`
       grid-template-columns: repeat(auto-fill, minmax(220px, 320px));
       justify-content: center;
       column-gap: 45px;
-      row-gap: 45px; 
+      row-gap: 45px;
     }
     .title {
       text-align: center;
@@ -55,7 +55,7 @@ const Wrapper = styled.section`
       margin-top: 50px;
       padding: 50px 0;
       width: 100%;
-      background: rgba(249, 254, 126, 0.25);
+      background: #feffaf;
     }
     &__item {
       perspective: 1000px;

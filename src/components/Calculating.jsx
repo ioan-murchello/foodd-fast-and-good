@@ -181,7 +181,6 @@ const Wrapper = styled.section`
   .calculating__field {
     width: 100%;
     margin-top: 50px;
-    /* background: rgba(146, 242, 255, 0.15); */
     padding: 30px 0 40px 0;
   }
   .calculating__subtitle {
@@ -193,18 +192,6 @@ const Wrapper = styled.section`
     &:first-child {
       margin-top: 0;
     }
-  }
-
-  #gender:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: block;
-    width: 16px;
-    height: 16px;
-    background: url('../assets/icons/switch.svg') center no-repeat;
-    background-size: cover;
   }
 
   .calculating__choose {

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from './Button';
-import logo from '../assets/icons/logo.svg';
+import food from '../assets/icons/Group 5.svg'
 
 const Header = () => {
   
@@ -9,16 +9,8 @@ const Header = () => {
       <div className='header__wrapper container'>
         <div className='header__left-block'>
           <div className='header__logo'>
-            <img src={logo} alt='Logotype' />
+            <img src={food} alt="Food logo" style={{width:'150px',height: '100px'}}/>
           </div>
-          <nav className='header__links'>
-            <a href='#' className='header__link'>
-              Delivery
-            </a>
-            <a href='#' className='header__link'>
-              
-            </a>
-          </nav>
         </div>
         <div className='header__right-block'>
           <Button classNamebtn btn_white title='Contact us' /> 
@@ -34,20 +26,19 @@ const Wrapper = styled.header`
 
   .header__wrapper {
     display: grid;
-    grid-template-columns: 2fr 1fr; 
+    grid-template-columns: 1fr 1fr;
     padding: 20px 15px;
-    margin: 0 auto;  
+    margin: 0 auto;
   }
 
   @media (max-width: 400px) {
-    .header__wrapper {
-      grid-template-columns: 1fr;
+    .header__wrapper { 
       row-gap: 20px;
     }
   }
   .header__left-block {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     align-items: center;
     max-width: 550px;
   }
@@ -62,15 +53,16 @@ const Wrapper = styled.header`
     place-items: end;
     align-items: center;
   }
-  @media (max-width: 400px) {
-    .header__right-block {
-      place-items: start;
-    }
-  }
+  
 
   .header__logo {
+    display: block;
+    font-family: 'Rubik Doodle Shadow';
     place-items: start;
-    max-width: 170px;
+    line-height: 17px;
+    font-size: 26px;
+    color: #000;
+    text-shadow: 1px 0px 5px #7fff10;
   }
 
   .header__logo img {

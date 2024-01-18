@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { timer } from '../helpers/timer';
-const deadline = '2024-01-16T11:50:00';
+import { timer,createDeadlineTime } from '../helpers/timer';
+
+ 
+
+const { promotionDate, nameOfMonth, dayName} = createDeadlineTime();
+
 
 const Promotion = () => {
   const [time, setTime] = useState({});
@@ -9,20 +13,21 @@ const Promotion = () => {
   const onSetTime = (times) => {
     setTime(times);
     if (times?.total === 0) {
+      return;
     }
   };
 
   useEffect(() => {
-    const tt = timer(deadline, onSetTime);
+    const timeEnded = timer(promotionDate, onSetTime);
 
-    if (tt <= '0') {
+    if (timeEnded <= '0') {
       setTime({ t: 0, days: 0, hours: 0, minutes: 0, seconds: 0 });
     }
 
     return () => {
-      clearInterval(tt);
+      clearInterval(timeEnded);
     };
-  }, [deadline]);
+  }, []);
 
   return (
     <Wrapper>
@@ -36,7 +41,11 @@ const Promotion = () => {
               favorable terms. Anyone who orders food delivery for a week will
               be given a discount of<span>20%!</span>
               <br />
-              The promotion will end on May 20 at 00:00
+              The promotion will end on{' '}
+              <b>
+                {nameOfMonth} {dayName}{' '}
+              </b>
+              at 00:00:00
             </div>
           </div>
           <div className='promotion__timer'>
@@ -86,7 +95,7 @@ const Wrapper = styled.section`
       position: absolute;
       width: 50%;
       height: 499px;
-      background: rgba(243, 255, 222, 0.35);
+      background: rgba(243, 255, 222, 0.45);
       z-index: -1;
       top: -50px;
       left: 0;
@@ -111,9 +120,9 @@ const Wrapper = styled.section`
       }
     }
     &__timer {
-        @media(max-width: 1124px){
-            margin: 0 0 0 15px;
-        }
+      @media (max-width: 1124px) {
+        margin: 0 0 0 15px;
+      }
       .title {
         text-align: right;
         font-size: 22px;

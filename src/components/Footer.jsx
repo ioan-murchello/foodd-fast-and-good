@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import paper from '../assets/icons/veg.svg'
 
+
 const Footer = () => {
   return (
     <Wrapper>

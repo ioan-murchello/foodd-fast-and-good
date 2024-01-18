@@ -20,7 +20,7 @@ const Offer = () => {
             </div>
           </div>
           <div className='offer__action'>
-            <Button title='Connect with us' firstC='#000' secondC='#fff' />
+            <Button title='Contact us' firstC='#000' secondC='#fff' />
           </div>
         </div>
         <div className='offer__container'>
@@ -83,8 +83,9 @@ const Wrapper = styled.section`
 
     .offer__text {
       width: 580px;
-      @media (max-width: 600px) {
-        width: auto;
+      @media (max-width: 992px) {
+        max-width: 456px;
+        width: 100%;
       }
     }
 
